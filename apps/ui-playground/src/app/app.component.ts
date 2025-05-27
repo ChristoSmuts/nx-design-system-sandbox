@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { ButtonComponent } from '@nx-design-system-sandbox/ui-library';
+import { InputComponent } from '@nx-design-system-sandbox/ui-library';
 
 @Component({
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [RouterModule, ButtonComponent, InputComponent],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
-  title = 'ui-playground';
-}
+export class AppComponent {}
