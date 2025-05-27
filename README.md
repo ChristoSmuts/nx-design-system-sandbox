@@ -1,101 +1,106 @@
-# NxDesignSystemSandbox
+# Nx Design System Sandbox
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+A modern monorepo for building, testing, and customizing a reusable UI component library with Angular, Nx, and PrimeNG.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## Features
+- **UI Library**: Develop reusable Angular components in `libs/ui-library`.
+- **Theming**: Customize design tokens and themes using PrimeNG's theme preset system.
+- **Playground App**: Preview and test your components in `apps/ui-playground`.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+---
 
-## Run tasks
+## Getting Started
 
-To run the dev server for your app, use:
+### 1. Install dependencies
+```sh
+npm install
+```
 
+### 2. Run the Playground app
 ```sh
 npx nx serve ui-playground
 ```
+The app will be available at [http://localhost:4200](http://localhost:4200).
 
-To create a production bundle:
+---
 
-```sh
-npx nx build ui-playground
+## Using the UI Library
+
+The UI library is published as `@nx-design-system-sandbox/ui-library` and exposes Angular components (e.g., Button, Input).
+
+### Import Components
+```typescript
+import { ButtonComponent, InputComponent } from '@nx-design-system-sandbox/ui-library';
+```
+Add them to your component's imports:
+```typescript
+@Component({
+  imports: [ButtonComponent, InputComponent],
+  // ...
+})
 ```
 
-To see all available targets to run for a project, run:
+### Provide the UI Library (with theme)
+```typescript
+import { providerUiLibrary } from '@nx-design-system-sandbox/ui-library';
 
-```sh
-npx nx show project ui-playground
+export const appConfig: ApplicationConfig = {
+  providers: [
+    ...providerUiLibrary(), // use default theme
+  ],
+};
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+---
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Customizing Design Tokens (PrimeNG Theme Preset)
 
-## Add new projects
+The UI library uses PrimeNG's theme preset system for flexible design token customization. The default theme is based on Aura, but you can override tokens for your app.
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+### How to Customize
 
-Use the plugin's generator to create new projects.
+1. **Pass a custom theme preset to `providerUiLibrary`:**
+```typescript
+import { providerUiLibrary } from '@nx-design-system-sandbox/ui-library';
+import { Preset } from '@primeng/themes/types';
 
-To generate a new application, use:
+const customTheme: Preset = {
+  semantic: {
+    primaryColor: '#007bff',
+    borderRadius: '8px',
+  },
+  components: {
+    button: {
+      background: '#007bff',
+      color: '#fff',
+    },
+  },
+  // ...extend or override other tokens as needed
+};
 
-```sh
-npx nx g @nx/angular:app demo
+export const appConfig: ApplicationConfig = {
+  providers: [
+    ...providerUiLibrary(customTheme),
+  ],
+};
 ```
 
-To generate a new library, use:
+2. **Reference**
+   - See `libs/ui-library/src/lib/theme/library.theme.ts` for the base theme setup.
+   - Refer to [PrimeNG Theme Docs](https://primeng.org/theming/#presets) for available tokens and options.
 
+3. **Live Reload**
+   - Changes to theme tokens will reflect immediately in the running app (when using `nx serve`).
+
+---
+
+## Project Structure
+- `apps/ui-playground` — Demo Angular app consuming the UI library
+- `libs/ui-library` — Angular component library and theme setup
+
+---
+
+## Testing
 ```sh
-npx nx g @nx/angular:lib mylib
+npx nx test ui-library
 ```
-
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
-```
-
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
-
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
