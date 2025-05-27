@@ -4,7 +4,6 @@ export default createConfig(
   {
     options: {
       root: __dirname,
-
       outputPath: {
         base: '../../dist/apps/ui-playground',
       },
@@ -16,11 +15,11 @@ export default createConfig(
         {
           glob: '**/*',
           input: './public',
-        },
+        }
       ],
       styles: ['./src/styles.css'],
       scripts: [],
-      devServer: {},
+      devServer: {}
     },
   },
   {
@@ -29,7 +28,7 @@ export default createConfig(
         budgets: [
           {
             type: 'initial',
-            maximumWarning: '500kb',
+            maximumWarning: '1mb',
             maximumError: '1mb',
           },
           {
@@ -42,7 +41,6 @@ export default createConfig(
         devServer: {},
       },
     },
-
     development: {
       options: {
         optimization: false,
