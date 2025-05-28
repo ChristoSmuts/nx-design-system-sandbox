@@ -104,3 +104,35 @@ export const appConfig: ApplicationConfig = {
 ```sh
 npx nx test ui-library
 ```
+
+---
+
+## Storybook: View UI Library Components
+
+Storybook provides an interactive environment to browse, test, and develop the UI components in isolation—without running an app.
+
+### Running Storybook
+
+To start Storybook for the UI library, run:
+
+```sh
+npm run ui:storybook
+```
+
+This will launch Storybook at [http://localhost:4400](http://localhost:4400), where you can explore all available components, view their states, and interact with their props/inputs.
+
+### Why Use Storybook?
+- **Preview components in isolation**: No need to run an app.
+- **Explore all component variants**: See all stories and states.
+- **Design, develop, and test faster**: Great for UI development, documentation, and QA.
+
+### Where are the stories?
+Stories for each component live alongside the component source in files named `*.stories.ts` within `libs/ui-library/src/lib/components/`.
+
+### Customizing Storybook
+Storybook's configuration for the UI library is found in:
+- `libs/ui-library/.storybook/`
+
+You can customize addons, theming, and more by editing these files. See the [Storybook documentation](https://storybook.js.org/docs/angular/get-started/introduction) for advanced usage.
+
+---
