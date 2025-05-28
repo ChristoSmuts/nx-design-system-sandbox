@@ -1,4 +1,4 @@
-# Nx Design System Sandbox
+# Design System Playground in Nx
 
 A modern monorepo for building, testing, and customizing a reusable UI component library with Angular, Nx, and PrimeNG.
 
