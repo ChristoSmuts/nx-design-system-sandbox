@@ -1,9 +1,9 @@
 /* Load TailwindCSS */
 @import "tailwindcss";
 
-/* Load PrimeUI Plugin and PrimeIcons */
-@plugin "tailwindcss-primeui";
+/* Load PrimeIcons and PrimeUI Plugin */
 @import "primeicons/primeicons.css";
+@plugin "tailwindcss-primeui";
 
 /* Set UI library commponents as a source for Tailwind to process */
 @source "../../../libs/ui-library/src/lib/components";
